@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>短信炸弹-SMS Bomb!</title>
+		<meta name="Keywords" content="短信炸弹,短信轰炸机,smsbomb,短信轰炸机网页版,短信炸弹网页版">
+		<meta name="Description" content="短信炸弹网页版，发送短信，轰炸手机~">
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<style>
+			body,div,p,span{font-family:helvetica,arial,freesans,clean,sans-serif}
+			#Form_mobile{width:270px; display:inline-block; }
+			#Form_submit{margin-top:-2px;}
+		</style>
+	</head>
+	
+	<body>
+		<div>
+			<br>
+		</div>
+		
+		<div class="container">
+			<div class="jumbotron">
+				<h1>SMS Bomb!  O(∩_∩)O</h1>
+				<hr>
+				<form class="form-inline" role="form">
+					<div class="form-group">
+		        <input type="text" class="form-control span1 input-lg" value="" placeholder="请输入手机号码" id="Form_mobile" maxlength="11">
+		        <input type="button" class="btn btn-info input-lg" value="提交" id="Form_submit">
+		        <label class="text-danger" id="Form_info"></label>
+		      </div>
+				</form>
+				
+				<br>
+				<br>
+				<p class="text-muted">请输入你的手机号码吧! 别担心, 也就几条短信而已 --!</p>
+				<p class="text-muted">一个手机号码在24小时内仅一次有效……</p>
+				<p class="text-muted">服务器排队发送, 也许你需要耐心等待, 远离手机, 先泡喝杯咖啡吧~~</p>
+				
+				<div class=""></div>
+			</div>
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#Form_submit").click(function() {
+				var postApi = "index.php";
+				
+				setInfo("正在提交...", true);
+				
+				$.ajax({
+					url: postApi,
+					data: {mobile: $("#Form_mobile").val(), 'ajax':1},
+					type: "post",
+					dataType: "json",
+					success: function() {
+						$("#Form_mobile").val("").blur();
+						setInfo("提交成功!", true);
+					},
+					error: function() {
+						setInfo("提交失败! 请稍后重试!", false);
+					}
+				});
+			});
+			
+			function setInfo(msg, success) {
+				var c = success ? "text-success" : "text-danger";
+				$("#Form_info").html(msg).removeClass().addClass(c);
+			}
+		});
+	</script>
+	
+	<div style="display:none">
+		<script type="text/javascript">
+			var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+			document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F5ba2bf410b154f773b29948e2ddcb0f4' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+</html>
